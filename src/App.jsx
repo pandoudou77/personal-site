@@ -171,7 +171,7 @@ function Hero({ onOpen, heroRef }) {
       <div className="portrait-scene" aria-label="高嘉勤个人插画">
         <div className="portrait-circle">
           <img
-            src="/assets/gao-jiaqin-portrait.png"
+            src={`${import.meta.env.BASE_URL}assets/gao-jiaqin-portrait.png`}
             alt="高嘉勤的个人插画肖像"
             width="1368"
             height="2048"
