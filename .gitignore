@@ -8,3 +8,4 @@ dist/
 /implementation-*.png
 /qa-*.png
 /qa/
+tmp/

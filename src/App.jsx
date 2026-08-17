@@ -1109,8 +1109,84 @@ function ContactPage({ onOpen }) {
   );
 }
 
+const SERVICES = [
+  {
+    index: "01",
+    title: "个人作品集站 / 简历网站",
+    desc: "求职展示、个人品牌、作品归档。定制布局与配色，适合想认真展示自己的人。",
+    price: "500 起 · 3-5 天交付",
+  },
+  {
+    index: "02",
+    title: "单页落地页 / 展示页",
+    desc: "产品介绍、活动宣传、个人介绍。一个页面讲清一件事，上线最快。",
+    price: "300 起 · 1-2 天交付",
+  },
+  {
+    index: "03",
+    title: "定制需求",
+    desc: "多页面、特殊交互、数据展示……先聊需求，再报价格。",
+    price: "按需求报价",
+  },
+];
+
+const PROCESS = ["发需求到邮箱", "确认报价", "定金开工（30%–50%）", "两轮修改", "交付源码 + 部署上线"];
+
+function ServicesPage({ onOpen }) {
+  return (
+    <div className="contact-page services-page">
+      <Header contactPage onContact={() => {}} />
+      <main className="contact-page-main services-page-main">
+        <a className="back-home" href="/"><ArrowLeft /> 返回首页</a>
+        <p className="contact-page-kicker">SERVICES · GAO JIAQIN</p>
+        <h1>把想法，<br />做成网站。</h1>
+        <p className="contact-page-intro">
+          个人网站、作品集站、落地页代做。用 AI 工具高效开发，从需求到上线一站式交付。<br />
+          这个网站就是我的作品：<a className="service-link" href="/">pandoudou77.github.io/personal-site</a>
+        </p>
+
+        <ul className="service-list" aria-label="服务项目">
+          {SERVICES.map((service) => (
+            <li key={service.index}>
+              <span className="service-index">{service.index}</span>
+              <div className="service-body">
+                <strong>{service.title}</strong>
+                <p>{service.desc}</p>
+                <em>{service.price}</em>
+              </div>
+            </li>
+          ))}
+        </ul>
+
+        <section className="service-process" aria-labelledby="process-title">
+          <h2 id="process-title">合作流程</h2>
+          <ol>
+            {PROCESS.map((step, index) => (
+              <li key={step}>
+                <span>{String(index + 1).padStart(2, "0")}</span>{step}
+              </li>
+            ))}
+          </ol>
+        </section>
+
+        <div className="contact-options services-cta">
+          <button type="button" onClick={() => onOpen("email")}>
+            <span><EnvelopeSimple /></span>
+            <small>EMAIL</small>
+            <strong>{EMAIL}</strong>
+            <em>点击复制邮箱，发需求给我</em>
+          </button>
+        </div>
+      </main>
+    </div>
+  );
+}
+
 function getRoute() {
-  return window.location.pathname.replace(/\/+$/, "") === "/contact" ? "contact" : "home";
+  const path = window.location.pathname.replace(/\/+$/, "");
+  if (path === "/contact") return "contact";
+  if (path === "/services") return "services";
+  return "home";
 }
 
 export function App() {
@@ -1137,6 +1213,8 @@ export function App() {
     <>
       {route === "contact" ? (
         <ContactPage onOpen={setDialogMode} />
+      ) : route === "services" ? (
+        <ServicesPage onOpen={setDialogMode} />
       ) : (
         <HomePage onOpen={setDialogMode} onContact={openContactPage} />
       )}
